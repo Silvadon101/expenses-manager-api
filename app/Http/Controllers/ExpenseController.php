@@ -14,7 +14,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $expenses = Expense::all();
+        return response()->json($expenses);
     }
 
     /**
@@ -35,7 +36,16 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'description' => 'required' //optional if you want this to be required
+        ]);
+        $expense = Expense::create($request->all());
+        return response()->json([
+            'message' => 'expense created',
+            'expense' => $expense
+        ]);
     }
 
     /**
@@ -46,7 +56,7 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense)
     {
-        //
+        return $expense;
     }
 
     /**
@@ -69,7 +79,20 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'description' => 'required' //optional if you want this to be required
+        ]);
+        $expense->name = $request->name();
+        $expense->amount = $request->amount();
+        $expense->description = $request->description();
+        $expense->save();
+
+        return response()->json([
+            'message' => 'expense updated!',
+            'expense' => $expense
+        ]);
     }
 
     /**
@@ -80,6 +103,9 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $expense->delete();
+        return response()->json([
+            'message' => 'expense deleted'
+        ]);
     }
 }
