@@ -18,8 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/expenses', 'ExpenseController@all')->name('expenses.all');
-Route::post('/expenses', 'ExpenseController@store')->name('expenses.store');
-Route::get('/expenses/{expense}', 'ExpenseController@show')->name('expenses.show');
-Route::put('/expenses/{expense}', 'ExpenseController@update')->name('expenses.update');
-Route::delete('/expenses/{expense}', 'ExpenseController@destory')->name('expenses.destroy');
+Route::get('/expenses', 'App\Http\Controllers\ExpenseController@index')->name('expenses.all');
+Route::post('/expenses', 'App\Http\Controllers\ExpenseController@store')->name('expenses.store');
+Route::get('/expenses/{expense}', 'App\Http\Controllers\ExpenseController@show')->name('expenses.show');
+Route::put('/expenses/{expense}', 'App\Http\Controllers\ExpenseController@update')->name('expenses.update');
+Route::delete('/expenses/{expense}', 'App\Http\Controllers\ExpenseController@destory')->name('expenses.destroy');
